@@ -18,8 +18,8 @@ module UART_RX_tb();
     // UART parameters
     localparam BAUD = 9600;
     localparam CLK_FREQ = 100_000_000;
-    localparam integer BIT_PERIOD = CLK_FREQ / BAUD; // ~10416 cycles
-    // Task to send one byte over RX
+    localparam integer BIT_PERIOD = CLK_FREQ / BAUD;
+
     task send_byte(input [7:0] byte);
         integer i;
         begin
@@ -43,10 +43,11 @@ module UART_RX_tb();
         areset_n = 1;
         rx_en = 1;
         #(5*T);
-        // Send 0xA5 = 1010_0101
+
         send_byte(8'b01011010);
-        // Wait a bit to observe "done"
+
         #(BIT_PERIOD*T*2);
         $stop;
 	end
 endmodule
+
