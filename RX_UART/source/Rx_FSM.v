@@ -41,9 +41,6 @@ SIPO_en = 0;
 state_next = state_reg;
 s_next = s_reg;
 n_next = n_reg;
-/*done = 0;
-err = 0;
-busy = 0;*/
 	case(state_reg)
 		IDLE: if(R_bit)begin
 				s_next = 0;
@@ -96,4 +93,5 @@ end
 assign done = (state_reg == DONE);
 assign err = (state_reg == ERR);
 assign busy = (state_reg != IDLE);
+
 endmodule
