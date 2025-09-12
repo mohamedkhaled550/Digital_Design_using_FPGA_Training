@@ -1,11 +1,12 @@
 module UART_TX_tb();
-reg clk, arst_n, tx_en;
+reg clk, arst_n, rst, tx_en;
 reg [7:0] data;
 wire tx, done, busy;
 UART_TX uut
 (
 	.clk(clk),
 	.arst_n(arst_n),
+	.rst(rst),
 	.tx_en(tx_en),
 	.data(data),
 	.tx(tx),
@@ -23,9 +24,11 @@ end
 initial
 begin
 	arst_n = 1'b0;
+	rst = 1;
 	tx_en = 1'b0;
 #2
 	arst_n = 1'b1;
+	rst = 0;
 	tx_en = 1'b1;
 @(negedge clk)
 	data = 8'b01101010;
