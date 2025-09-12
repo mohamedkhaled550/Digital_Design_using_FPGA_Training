@@ -1,6 +1,6 @@
 module UART
 (
-	input clk, arst_n,
+	input clk, arst_n, rst,
 	input [7:0] data,
 	input uart_en,
 	output [7:0] received_data,
@@ -15,6 +15,7 @@ UART_TX transmiter
 (
 	.clk(clk),
 	.arst_n(arst_n),
+	.rst(rst),
 	.tx_en(uart_en),
 	.data(data),
 	.tx(TX),
@@ -24,7 +25,8 @@ UART_TX transmiter
 UART_RX receiver
 (
 	.clk(clk),
-	.areset_n(arst_n),
+	.arst_n(arst_n),
+	.rst(rst),
 	.RX(TX),
 	.rx_en(uart_en),
 	.done(RX_done),
