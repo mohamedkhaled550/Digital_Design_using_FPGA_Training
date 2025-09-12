@@ -1,6 +1,6 @@
 module Tx_bit_select
 (
-	input clk, areset_n, tx_en,
+	input clk, areset_n, tx_en, reset,
 	input counter_tick,
 	output reg [3:0] sel,
 	output reg load, done,
@@ -15,6 +15,12 @@ always @(posedge clk, negedge areset_n)
 begin
 	if(!areset_n)
 	begin
+		s_reg <= 4'b0000;
+		n_reg <= 3'b000;
+		state_reg <= IDLE;
+	end
+	else if(reset)
+		begin
 		s_reg <= 4'b0000;
 		n_reg <= 3'b000;
 		state_reg <= IDLE;
