@@ -1,6 +1,6 @@
 module Rx_FSM
 (
-	input clk, areset_n, en,
+	input clk, areset_n, en, reset,
 	input R_bit, P_bit, counter_tick,
 	output reg SIPO_en,
 	output done, err, busy 
@@ -17,6 +17,12 @@ reg [2:0] state_reg, state_next;
 always @(posedge clk, negedge areset_n)
 begin
 	if(!areset_n)
+	begin
+		s_reg <= 4'b0000;
+		n_reg <= 3'b000;
+		state_reg <= IDLE;
+	end
+	else if(reset)
 	begin
 		s_reg <= 4'b0000;
 		n_reg <= 3'b000;
@@ -93,5 +99,4 @@ end
 assign done = (state_reg == DONE);
 assign err = (state_reg == ERR);
 assign busy = (state_reg != IDLE);
-
 endmodule
